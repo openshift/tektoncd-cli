@@ -52,12 +52,12 @@ lint-yaml: ${YAML_FILES} ## runs yamllint on all yaml files
 	@yamllint -c .yamllint $(YAML_FILES)
 
 .PHONY: test-unit
-test-unit: ./vendor ## run unit tests
+test-unit: bin/tkn ./vendor ## run unit tests
 	@echo "Running unit tests..."
 	@go test -failfast -v -cover ./...
 
 .PHONY: test-e2e
-test-e2e: ./vendor ## run e2e tests
+test-e2e: bin/tkn ## run e2e tests
 	@echo "Running e2e tests..."
 	@LOCAL_CI_RUN=true bash ./test/e2e-tests.sh
 

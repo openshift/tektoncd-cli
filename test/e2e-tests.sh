@@ -35,10 +35,15 @@ ci_run && {
   (( failed )) && fail_test
 }
 
-go build github.com/tektoncd/cli/cmd/tkn
-
 tkn() {
- ./tkn "$@"
+    if [[ -e ./bin/tkn ]];then
+        ./bin/tkn $@
+    elif type -p tkn >/dev/null 2>/dev/null;then
+        tkn $@
+    else
+        go build github.com/tektoncd/cli/cmd/tkn
+        ./tkn "$@"
+    fi
 }
 
 kubectl get crds|grep tekton\\.dev && fail_test "TektonCD CRDS should not be installed, you should reset them before each runs"

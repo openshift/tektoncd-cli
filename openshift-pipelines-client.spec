@@ -18,7 +18,7 @@ URL:            https://%{repo}/releases/tag/v%{version}
 
 Source0:        %{source_tar}
 BuildRequires:  gcc
-BuildRequires:  golang >= 1.12
+BuildRequires:  golang >= %{golang_version}
 
 %description
 The OpenShift Pipelines client is a CLI tool to work effectively with OpenShift pipelines
@@ -43,6 +43,11 @@ install -d %{buildroot}%{_datadir}/zsh/site-functions
 install -d %{buildroot}%{_mandir}/man1
 cp -a docs/man/man1/* %{buildroot}%{_mandir}/man1
 
+install -d %{buildroot}%{_datadir}/%{name}-redistributable/{linux,macos,windows}
+install -p -m 755 bin/tkn-linux-amd64 %{buildroot}%{_datadir}/%{name}-redistributable/linux/tkn-linux-amd64
+install -p -m 755 bin/tkn-darwin-amd64 %{buildroot}/%{_datadir}/%{name}-redistributable/macos/tkn-darwin-amd64
+install -p -m 755 bin/tkn-windows-amd64 %{buildroot}/%{_datadir}/%{name}-redistributable/windows/tkn-windows-amd64.exe
+
 %files
 %doc *.md
 %license LICENSE
@@ -50,6 +55,23 @@ cp -a docs/man/man1/* %{buildroot}%{_mandir}/man1
 %{_datadir}/zsh/site-functions/*
 %{_datadir}/bash-completion/completions/*
 %{_mandir}/*
+
+%package redistributable
+Summary:        %{product_name} CLI binaries for Linux, macOS and Windows
+BuildRequires:  gcc
+BuildRequires:  golang >= %{golang_version}
+
+%description redistributable
+%{product_name} CLI cross platform binaries for Linux, macOS and Windows.
+
+%files redistributable
+%license LICENSE
+%dir %{_datadir}/%{name}-redistributable/linux/
+%dir %{_datadir}/%{name}-redistributable/macos/
+%dir %{_datadir}/%{name}-redistributable/windows/
+%{_datadir}/%{name}-redistributable/linux/tkn-linux-amd64
+%{_datadir}/%{name}-redistributable/macos/tkn-darwin-amd64
+%{_datadir}/%{name}-redistributable/windows/tkn-windows-amd64.exe
 
 %changelog
 * Mon Sep 16 2019 Chmouel Boudjnah <chmouel@redhat.com> 0.3.1

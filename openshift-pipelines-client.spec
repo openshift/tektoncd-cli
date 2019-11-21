@@ -14,11 +14,12 @@ Version:        %{tkn_version}
 Release:        %{tkn_release}
 Summary:        A command line tool to enhance users productivity for working with %{product_name}
 License:        ASL 2.0
-URL:            https://%{repo}/releases/tag/v%{version}
+URL:            https://%{repo}/releases/tag/v%{tkn_version}
 
 Source0:        %{source_tar}
-BuildRequires:  gcc
 BuildRequires:  golang >= %{golang_version}
+Provides:       %{package_name}
+Obsoletes:      %{package_name}
 
 %description
 The OpenShift Pipelines client is a CLI tool to work effectively with OpenShift pipelines
@@ -58,7 +59,6 @@ install -p -m 755 bin/tkn-windows-amd64 %{buildroot}/%{_datadir}/%{name}-redistr
 
 %package redistributable
 Summary:        %{product_name} CLI binaries for Linux, macOS and Windows
-BuildRequires:  gcc
 BuildRequires:  golang >= %{golang_version}
 
 %description redistributable

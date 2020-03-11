@@ -63,6 +63,7 @@ must_fail  "list taskrun for task foo before installing crd" tkn taskrun list fo
 must_fail  "logs of pipelinerun before installing crd" tkn pipelinerun logs foo
 must_fail  "logs of taskrun before installing crd" tkn taskrun logs foo
 
+
 install_pipeline_crd
 
 # listing objects after CRD is created should not fail

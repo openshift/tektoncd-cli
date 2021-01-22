@@ -1,4 +1,4 @@
-FROM openshift/origin-release:golang-1.14
+FROM registry.svc.ci.openshift.org/openshift/release:golang-1.14
 
 # download, verify and install openshift client tools (oc and kubectl)
 WORKDIR /tmp
